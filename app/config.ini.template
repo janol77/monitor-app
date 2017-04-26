@@ -1,0 +1,16 @@
+MONGODB_SETTINGS = {'DB': 'demo3-dev'}
+TESTING = True
+SECRET_KEY = 'flask+mongoengine=<3'
+DEBUG = True
+HOST = '0.0.0.0'
+PORT = 10001
+DEBUG_TB_PANELS = (
+        'flask_debugtoolbar.panels.versions.VersionDebugPanel',
+        'flask_debugtoolbar.panels.timer.TimerDebugPanel',
+        'flask_debugtoolbar.panels.headers.HeaderDebugPanel',
+        'flask_debugtoolbar.panels.request_vars.RequestVarsDebugPanel',
+        'flask_debugtoolbar.panels.template.TemplateDebugPanel',
+        'flask_debugtoolbar.panels.logger.LoggingPanel',
+        'flask_mongoengine.panels.MongoDebugPanel'
+    )
+DEBUG_TB_INTERCEPT_REDIRECTS = False

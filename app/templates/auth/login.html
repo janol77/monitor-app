@@ -1,0 +1,228 @@
+{% macro render_field(field, placeholder=None) %}
+{% if field.errors %}
+<div>
+{% elif field.flags.error %}
+<div>
+{% else %}
+<div>
+{% endif %}
+    {% set css_class = 'form-control ' + kwargs.pop('class', '') %}
+    {{ field(class=css_class, placeholder=placeholder, **kwargs) }}
+</div>
+{% endmacro %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Demo1 | OpenVita</title>
+
+    <!-- Bootstrap -->
+    <link href="/static/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="/static/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="/static/vendors/nprogress/nprogress.css" rel="stylesheet">
+    <!-- Animate.css -->
+    <link href="/static/vendors/animate.css/animate.min.css" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="/static/css/custom.min.css" rel="stylesheet">
+    <!-- PNotify -->
+    <link href="/static/vendors/pnotify/dist/pnotify.css" rel="stylesheet">
+    <link href="/static/vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
+    <link href="/static/vendors/pnotify/dist/pnotify.nonblock.css" rel="stylesheet">
+  </head>
+
+  <body class="login">
+    <div>
+      <a class="hiddenanchor" id="signup"></a>
+      <a class="hiddenanchor" id="signin"></a>
+
+      <div class="login_wrapper">
+        <div class="animate form login_form">
+          <section class="login_content">
+            <form method="POST" action="login" accept-charset="UTF-8" role="form">
+              <h1>Ingreso</h1>
+              <div>
+                    {{ form.hidden_tag() }}
+
+                      <div class="item form-group">
+                      {% if form.email.errors %}
+                        {{form.email(class="form-control col-md-7 col-xs-12", style="border:1px solid #a94442")}}
+                      {% else %}
+                        {{form.email(class="form-control col-md-7 col-xs-12")}}
+                      {% endif %}                        
+                        {% if form.email.errors %}
+                        <ul class="errors text-danger">
+                          {% for error in form.email.errors %}
+                            <li>{{ error }}</li>
+                          {% endfor %}
+                        </ul>
+                        {% endif %}                        
+                      </div>
+                      <div class="item form-group">
+                      {% if form.password.errors %}
+                        {{form.password(class="form-control col-md-7 col-xs-12", style="border:1px solid #a94442")}}
+                      {% else %}
+                        {{form.password(class="form-control col-md-7 col-xs-12")}}
+                      {% endif %}                        
+                        {% if form.password.errors %}
+                        <ul class="errors text-danger">
+                          {% for error in form.password.errors %}
+                            <li>{{ error }}</li>
+                          {% endfor %}
+                        </ul>
+                        {% endif %}                        
+                      </div>
+
+
+
+      <!-- {{ render_field(form.password, placeholder="Password") }} -->
+      <!-- {{ render_field(form.email, placeholder="Your Email Address", autofocus="") }} -->
+              <div>
+                <button class="btn btn-default submit" type="submit" name="submit">Ingresar</button>
+                <a class="reset_pass" href="#">Olvidaste tu contraseña?</a>
+              </div>
+
+              <div class="clearfix"></div>
+
+              <div class="separator">
+                <p class="change_link">Nuevo en este sitio?
+                  <a href="#signup" class="to_register"> Crea una Cuenta </a>
+                </p>
+
+                <div class="clearfix"></div>
+                <br />
+
+                <div>
+                  <div class="">
+                    <img src="/static/images/logo.png" alt="..." class="">
+                  </div>
+                  <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
+                </div>
+              </div>
+            </form>
+          </section>
+        </div>
+
+        <div id="register" class="animate form registration_form">
+          <section class="login_content">
+            <form>
+              <h1>Create Account</h1>
+              <div>
+                <input type="text" class="form-control" placeholder="Nombre" required="" />
+              </div>
+              <div>
+                <input type="email" class="form-control" placeholder="Correo" required="" />
+              </div>
+              <div>
+                <input type="password" class="form-control" placeholder="Contraseña" required="" />
+              </div>
+              <div>
+                <a class="btn btn-default submit" href="index.html">Crear</a>
+              </div>
+
+              <div class="clearfix"></div>
+
+              <div class="separator">
+                <p class="change_link">Ya tienes una cuenta ?
+                  <a href="#signin" class="to_register"> Ingresar </a>
+                </p>
+
+                <div class="clearfix"></div>
+                <br />
+
+                <div>
+                  <div class="">
+                    <img src="/static/images/logo.png" alt="..." class="">
+                  </div>
+                  <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and Terms</p>
+                </div>
+              </div>
+            </form>
+          </section>
+        </div>
+      </div>
+    </div>
+    <script src="/static/vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap
+    <script src="/static/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="/static/vendors/fastclick/lib/fastclick.js"></script>
+    <!-- PNotify -->
+    <script src="/static/vendors/pnotify/dist/pnotify.js"></script>
+    <script src="/static/vendors/pnotify/dist/pnotify.buttons.js"></script>
+    <script src="/static/vendors/pnotify/dist/pnotify.nonblock.js"></script>
+    <script>
+      $(document).ready(function() {
+        var titles = {'error': 'Error', 'success': 'Realizado', 'info': 'Información'};
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              new PNotify({title: titles['{{category}}'],
+                           text: '{{message}}',
+                           type: '{{category}}',
+                           hide: true,
+                           styling: 'bootstrap3'});
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+      });
+    </script>
+  </body>
+</html>
+
+<!-- {% macro render_field(field, placeholder=None) %}
+{% if field.errors %}
+<div>
+{% elif field.flags.error %}
+<div>
+{% else %}
+<div>
+{% endif %}
+    {% set css_class = 'form-control ' + kwargs.pop('class', '') %}
+    {{ field(class=css_class, placeholder=placeholder, **kwargs) }}
+</div>
+{% endmacro %}
+
+<div>
+  <div>
+    <legend>Sign in</legend>
+    {% with errors = get_flashed_messages(category_filter=["error"]) %}
+    {% if errors %}
+    <div>
+    {% for error in errors %}
+    {{ error }}<br>
+    {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    {% if form.errors %}
+    <div>
+    {% for field, error in form.errors.items() %}
+    {% for e in error %}
+    {{ e }}<br>
+    {% endfor %}
+    {% endfor %}
+    </div>
+    {% endif %}
+    <form method="POST" action="login" accept-charset="UTF-8" role="form">
+      {{ form.csrf_token }}
+      {{ render_field(form.email, placeholder="Your Email Address",
+                                  autofocus="") }}
+      {{ render_field(form.password, placeholder="Password") }}
+      <div>
+      <label>
+        <input type="checkbox" name="remember" value="1"> Remember Me
+      </label>
+      <a role="button" href="">Forgot your password?</a><span class="clearfix"></span>
+      </div>
+      <button type="submit" name="submit">Sign in</button>
+    </form>  
+  </div> -->
+</div>
